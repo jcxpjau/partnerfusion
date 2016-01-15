@@ -17,6 +17,10 @@ fieldset {
     text-align: left;
     overflow: hidden;
     font-size: 1.2rem;
+    background-color: #fafafa;
+    -webkit-box-shadow:  -1px 2px 4px -1px rgba(0,0,0,0.45);
+    -moz-box-shadow:     -1px 2px 4px -1px rgba(0,0,0,0.45);
+    box-shadow:          -1px 2px 4px -1px rgba(0,0,0,0.45);
 }
 .login form label {
     color: #3B4F58;
