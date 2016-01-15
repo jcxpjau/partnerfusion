@@ -1,0 +1,58 @@
+/** FORM, INPUT, BUTTON **/
+
+fieldset {
+    margin: 0;
+    padding: 0;
+    border: 0px;
+}
+.login {
+    width: 35%;
+    height: auto;
+    margin: auto;
+    text-align: center;
+}
+
+.login form {
+    padding: 2rem 2rem 2rem;
+    text-align: left;
+    overflow: hidden;
+    font-size: 1.2rem;
+}
+.login form label {
+    color: #3B4F58;
+}
+.login form p {
+    font-size: 0.9rem;
+}
+input[type="input"],
+input[type="password"] {
+    width: 100%;
+    font-size: 1.2rem;
+    color: red;
+    border: 1px solid #818181;
+    padding: 3px;
+    margin: 2px 6px 16px 0px;
+}
+.button {
+	background-color: #FC2725;
+    width: 30%;
+	color: white;
+	font-size: 1rem;
+    font-weight: bold;
+	padding: 0.5rem 0.5rem;
+	text-decoration: none;
+    border: 0px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.button:hover {
+    background-color: #ff4341;
+}
+.rememberme {
+    float: left;
+}
+.btn-login {
+    float: right;
+    margin-right: -7px;
+}
