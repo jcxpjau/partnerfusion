@@ -1,0 +1,72 @@
+/** FORM, INPUT, BUTTON **/
+
+fieldset {
+    margin: 0;
+    padding: 0;
+    border: 0px;
+}
+.login {
+    width: 35%;
+    height: auto;
+    margin: auto;
+    text-align: center;
+}
+
+.login form {
+    padding: 2rem 2rem 2rem;
+    text-align: left;
+    overflow: hidden;
+    font-size: 1.2rem;
+    background-color: #fafafa;
+    -webkit-box-shadow:  -1px 2px 4px -1px rgba(0,0,0,0.45);
+    -moz-box-shadow:     -1px 2px 4px -1px rgba(0,0,0,0.45);
+    box-shadow:          -1px 2px 4px -1px rgba(0,0,0,0.45);
+}
+.login form label {
+    color: #3B4F58;
+}
+.login form p {
+    font-size: 0.9rem;
+}
+input[type="input"],
+input[type="password"],
+select {
+    width: 100%;
+    font-size: 1.2rem;
+    color: red;
+    border: 1px solid #818181;
+    padding: 3px;
+    margin: 2px 6px 16px 0px;
+}
+.button {
+	background-color: #FC2725;
+    width: 30%;
+	color: white;
+	font-size: 1rem;
+    font-weight: bold;
+	padding: 0.5rem 0.5rem;
+	text-decoration: none;
+    border: 0px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.button:hover {
+    background-color: #ff4341;
+}
+.rememberme {
+    float: left;
+}
+.btn-login {
+    float: right;
+    margin-right: -7px;
+}
+.register {
+    width: 50%;
+    margin: 0 auto;
+    font-size: 1.2rem;
+}
+.register h3 {
+    text-align: center;
+    color: #3B4F58;
+}

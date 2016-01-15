@@ -1,0 +1,131 @@
+/** DEFAULT **/
+
+body {
+    margin: 0 auto;
+    font-size: 10px;
+    font-family: "Arial MT";
+}
+a {
+    text-decoration: none;
+}
+ol, ul {
+    list-style: none;
+    display: inline;
+    padding: 0;
+    margin: 0;
+    list-style-position: inside;
+}
+.container {
+    width: 100%;
+    display: block;
+}
+.wrapper {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/** HEADER **/
+
+.header {
+    margin-top: 3rem;
+    margin-bottom: 4rem;
+}
+
+.logo img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/** MENU **/
+
+.menu {
+    text-align: center;
+}
+
+.menu-header {
+    z-index: 2;
+}
+.menu-header a {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #3B4F58;
+}
+.menu-header > li {
+    position: relative;
+    display: inline-block;
+    margin-top: 1.4rem;
+    padding: 1rem;
+    height: 30px;
+}
+.menu-header li:hover .submenu-nav {
+    display: block;
+}
+.submenu-nav {
+    display: none;
+    position: absolute;
+    text-align: center;
+    background-color: rgba( 252, 39, 37, 0.8 );
+    left: 12%;
+    top: 2.3rem;
+    z-index: 9999;
+}
+.submenu-nav li {
+    margin: 0;
+    display: block;
+}
+.submenu-nav li a {
+    display: block;
+    font-size: 1.1rem;
+    color: white;
+    text-transform: none;
+    padding: 0.3rem 1.7rem;
+}
+.submenu-nav a:hover {
+    font-weight: bold;
+}
+
+/** LIST **/
+.list h2 {
+    color: #3B4F58;
+    font-weight: bold;
+    font-size: 1.4rem;
+}
+.list-head {
+    margin-top: 1rem;
+    margin-bottom: 0.6rem;
+}
+.list-head span {
+    font-weight: bold;
+}
+.list ul {
+    display: inline-block;
+    width: 100%;
+    height: auto;
+}
+.list li {
+    float: left;
+    width: 25%;
+}
+.list span {
+    font-size: 1rem;
+    color: #3B4F58;
+}
+.list a {
+    font-size: 0.8rem;
+    color: red;
+}
+
+
+/** FOOTER **/
+
+.footer {
+    position:absolute;
+	bottom:0;
+    height: 50px;
+    font-family: "Arial MT";
+    font-size: 0.9rem;
+    text-align: center;
+    color: #3B4F58;
+}
