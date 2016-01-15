@@ -12,3 +12,8 @@ ehthumbs.db
 Thumbs.db
 *.log
 /.idea/vcs.xml
+/.idea/.name
+/.idea/misc.xml
+/.idea/workspace.xml
+/.idea/partner-fusion.iml
+/.idea/modules.xml

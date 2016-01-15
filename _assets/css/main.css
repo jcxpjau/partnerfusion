@@ -1,5 +1,3 @@
-
-
 /** DEFAULT **/
 
 body {
@@ -31,6 +29,7 @@ ol, ul {
 
 .header {
     margin-top: 3rem;
+    margin-bottom: 4rem;
 }
 
 .logo img {
@@ -67,8 +66,9 @@ ol, ul {
     display: none;
     position: absolute;
     text-align: center;
+    background-color: rgba( 252, 39, 37, 0.8 );
     left: 12%;
-    top: 2.9rem;
+    top: 2.3rem;
     z-index: 9999;
 }
 .submenu-nav li {
@@ -78,12 +78,46 @@ ol, ul {
 .submenu-nav li a {
     display: block;
     font-size: 1.1rem;
-    color: red;
+    color: white;
     text-transform: none;
+    padding: 0.3rem 1.7rem;
 }
 .submenu-nav a:hover {
     font-weight: bold;
 }
+
+/** LIST **/
+.list h2 {
+    color: #3B4F58;
+    font-weight: bold;
+    font-size: 1.4rem;
+}
+.list-head {
+    margin-top: 1rem;
+    margin-bottom: 0.6rem;
+}
+.list-head span {
+    font-weight: bold;
+}
+.list ul {
+    display: inline-block;
+    width: 100%;
+    height: auto;
+}
+.list li {
+    float: left;
+    width: 25%;
+}
+.list span {
+    font-size: 1rem;
+    color: #3B4F58;
+}
+.list a {
+    font-size: 0.8rem;
+    color: red;
+}
+
+
 /** FOOTER **/
 
 .footer {
