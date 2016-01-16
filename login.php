@@ -1,13 +1,15 @@
-<?php require_once '../../includes/header.php'; ?>
+<?php
+include_once 'config.php';
+include_once PATH_SITE . 'includes/header.php'; ?>
 <section class="container form">
     <div class="wrapper">
         <div class="login">
-            <form action="#" method="POST" >
+            <form action="<?php echo URL_SITE; ?>" method="POST" >
                 <fieldset>
                     <ul>
                         <li>
                             <label for="email">Email</label>
-                            <input id="email" type="input" name="_email" />
+                            <input id="email" type="text" name="_email" />
                         </li>
                         <li>
                             <label for="pwd">Senha</label>
@@ -19,6 +21,7 @@
                                 <label for="remember">Manter conectado</label>
                             </p>
                             <input class="button btn-login" type="submit" value="Login" />
+                            <input type="hidden" name="login-form" value="1" />
                         </li>
                     </ul>
                 </fieldset>
@@ -26,4 +29,5 @@
         </div>
     </div>
 </section>
-<?php require_once '../../includes/footer.php'; ?>
+<?php include_once PATH_SITE . 'includes/footer.php'; ?>
+

@@ -1,17 +1,35 @@
 <?php
 
-$request = explode( '/' ,  $_SERVER[ 'REQUEST_URI' ]  );
-$site    = $request[ 1 ];
-$server  = $_SERVER[ 'SERVER_NAME' ];
-$url     = "http://{$server}/{$site}/";
+$request    = explode( '/' ,  $_SERVER[ 'REQUEST_URI' ]  );
+$site       = $request[ 1 ];
+$server     = $_SERVER[ 'SERVER_NAME' ];
+$url_server = "http://{$server}";
+$url        = "{$url_server}/{$site}/";
 
-
-if( !isset( $_SESSION ) )
-    session_start();
-
-
+//Essential files to go!
 include_once 'controller/functions.php';
 include_once 'controller/connect.php';
+include_once 'model/model.php';
+
+
+//Essential constants
+define( "URL_SERVER", $url_server                );
+define( "URL_SITE" ,  $url                       );
+define( "PATH_SITE",  dirname(__FILE__) . '/'    );
+define( "SITE_NAME",  $site                      );
+
+//DATABASE CONFIG
+define( "DB_HOST",      '127.0.0.1'         );
+define( "DB_BASE",      'partner-fusion'    );
+define( "DB_USER",      'root'              );
+define( "DB_PASSWORD",  ''                  );
+
+//Default timezone for time function
+date_default_timezone_set( 'America/Sao_Paulo' );
+
+
+$controller = new Functions();
+$controller->check_access();
 
 
 function autoload( $class )
@@ -26,18 +44,6 @@ function autoload( $class )
 }
 
 spl_autoload_register( 'autoload' );
-
-
-define( "URL_SITE" , $url                       );
-define( "PATH_SITE", dirname(__FILE__) . '/'    );
-define( "SITE_NAME", $site                      );
-
-
-//DATABASE CONFIG
-define( "DB_HOST",      '127.0.0.1'         );
-define( "DB_BASE",      'partner-fusion'    );
-define( "DB_USER",      'root'              );
-define( "DB_PASSWORD",  ''                  );
 
 function dump( $var )
 {

@@ -28,7 +28,7 @@ fieldset {
 .login form p {
     font-size: 0.9rem;
 }
-input[type="input"],
+input[type="text"],
 input[type="password"],
 select {
     width: 100%;

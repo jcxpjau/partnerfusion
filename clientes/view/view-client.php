@@ -1,4 +1,4 @@
-<?php require_once '../../includes/header.php'; ?>
+<?php include_once PATH_SITE . 'includes/header-menu.php'; ?>
 <section class="container list">
     <div class="wrapper">
         <h2>Listagem de Clientes</h2>
@@ -16,4 +16,4 @@
         </ul>
     </div>
 </section>
-<?php require_once '../../includes/footer.php'; ?>
+<?php include_once PATH_SITE . 'includes/footer.php'; ?>
