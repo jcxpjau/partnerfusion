@@ -1,6 +1,6 @@
 <?php
 
-class Controller_login extends Functions
+class Controller_service extends Functions
 {
     public function __construct()
     {

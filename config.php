@@ -27,13 +27,6 @@ function autoload( $class )
 
 spl_autoload_register( 'autoload' );
 
-function dump( $var )
-{
-    echo '<pre>';
-    var_dump( $var );
-    exit;
-}
-
 
 define( "URL_SITE" , $url                       );
 define( "PATH_SITE", dirname(__FILE__) . '/'    );
@@ -45,3 +38,10 @@ define( "DB_HOST",      '127.0.0.1'         );
 define( "DB_BASE",      'partner-fusion'    );
 define( "DB_USER",      'root'              );
 define( "DB_PASSWORD",  ''                  );
+
+function dump( $var )
+{
+    echo '<pre>';
+    var_dump( $var );
+    exit;
+}
