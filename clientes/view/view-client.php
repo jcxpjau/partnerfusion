@@ -9,10 +9,14 @@
             <li><span>Data de Registro</span></li>
         </ul>
         <ul class="container list">
-            <li><span>Partner-Fusion</span><a href="#"> editar </a><a href="#"> Excluir </a></li>
-            <li><span>TI</span></li>
-            <li><span>14-9999-9999</span></li>
-            <li><span>99/99/9999</span></li>
+        <?php
+        if ( $this->clients ) {
+            foreach( $this->clients as $k => $v ) {  ?>
+            <li><span><?php echo $v->client_name; ?></span><a href="?action=edit&id=<?php echo $v->client_id; ?>"> editar </a><a href="?action=delete&id=<?php echo $v->client_id; ?>"> Excluir </a></li>
+            <li><span><?php echo $v->client_branch; ?></span></li>
+            <li><span><?php echo $v->client_phone; ?></span></li>
+            <li><span><?php echo date( 'd/m/Y', strtotime( $v->client_register_date ) ); ?></span></li>
+        <?php } } ?>
         </ul>
     </div>
 </section>
