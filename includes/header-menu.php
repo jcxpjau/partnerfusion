@@ -26,9 +26,9 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="<?php echo URL_SITE . 'pedidos/'; ?>">TRABALHOS</a>
+                    <a href="<?php echo URL_SITE . 'ordens/'; ?>">TRABALHOS</a>
                     <ul class="submenu-nav">
-                        <li><a href="<?php echo URL_SITE . 'pedidos/?action=insert'; ?>">Novo</a></li>
+                        <li><a href="<?php echo URL_SITE . 'ordens/?action=insert'; ?>">Novo</a></li>
                     </ul>
                 </li>
             </ul>

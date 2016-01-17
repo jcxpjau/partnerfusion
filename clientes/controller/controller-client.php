@@ -64,7 +64,6 @@ class Controller_client extends Functions
 
         if ( isset( $_POST[ 'client-form' ] ) && $_POST[ 'client-form' ] ) {
             $requires = array(
-                '_id',
                 '_name',
                 '_branch',
                 '_phone',
@@ -74,7 +73,6 @@ class Controller_client extends Functions
 
         if ( isset( $values ) && $values && isset( $id ) ) {
             $values[ '_id' ] =  (int) $id;
-            $model  = new Model_client();
             $result = $model->update_client( $values );
             if ( $result ) {
                 $client = $model->get_client( $values[ '_id' ] );
@@ -84,10 +82,15 @@ class Controller_client extends Functions
 
         if ( isset( $client ) && !empty( $client ) ) {
             $this->v = array(
-                '_id'        => $client->client_id,
                 '_name'      => $client->client_name,
                 '_branch'    => $client->client_branch,
                 '_phone'     => $client->client_phone
+            );
+        } else {
+            $this->v = array(
+                '_name'      => $_POST[ '_name' ],
+                '_branch'    => $_POST[ '_branch' ],
+                '_phone'     => $_POST[ '_phone' ]
             );
         }
 

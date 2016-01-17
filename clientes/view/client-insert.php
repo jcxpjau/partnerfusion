@@ -1,4 +1,4 @@
-<?php include_once PATH_SITE . 'includes/header.php';
+<?php include_once PATH_SITE . 'includes/header-menu.php';
 if ( isset( $_GET[ 'id' ] ) && $_GET[ 'id' ]  ) {
     $action = URL_SITE . 'clientes/?action=edit&id=' . $_GET['id'];
     $text = 'Edição';
@@ -10,7 +10,8 @@ if ( isset( $_GET[ 'id' ] ) && $_GET[ 'id' ]  ) {
 <section class="container form">
     <div class="wrapper">
         <div class="register">
-            <h3><?php echo $text; ?> de Cliente</h3><a href="<?php echo URL_SITE; ?>clientes"> - Voltar</a>
+            <h3><?php echo $text; ?> de Cliente</h3>
+            <h3><a href="<?php echo URL_SITE; ?>clientes">Voltar</a></h3>
             <form action="<?php echo $action; ?>" method="POST">
                 <fieldset>
                     <ul>

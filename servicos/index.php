@@ -1,3 +1,3 @@
 <?php
 include_once '../config.php';
-$login = new Controller_service();
+$service = new Controller_service();

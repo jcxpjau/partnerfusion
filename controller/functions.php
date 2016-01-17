@@ -41,7 +41,7 @@ class Functions
 
                 $update = $model->update_hash($user->user_id, $_SESSION[ 'hash' ] );
                 if ($update)
-                    setcookie('hash', $_SESSION[ 'hash' ] , (time() + ( 365 * 86400 ) ) );
+                    setcookie('hash', $_SESSION[ 'hash' ] , ( time() + ( 365 * 86400 ) ) );
             }
         }
 

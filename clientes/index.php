@@ -2,4 +2,4 @@
 
 include_once '../config.php';
 
-$login = new Controller_client();
+$client = new Controller_client();

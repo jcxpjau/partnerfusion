@@ -18,7 +18,7 @@ include_once PATH_SITE . 'includes/header.php';
                 </li>
                 <li>
                     <div class="box-order">
-                        <a href="<?php echo URL_SITE . 'pedidos'?>">Ordens</a>
+                        <a href="<?php echo URL_SITE . 'ordens'?>">Ordens</a>
                     </div>
                 </li>
             </ul>
