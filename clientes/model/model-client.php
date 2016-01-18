@@ -19,8 +19,9 @@ class Model_client extends Connect
             $result = $stm->execute();
             return $result;
         } catch ( PDOException $e ) {
-            die( $e->getMessage() );
+            $this->error = $e->getMessage();
         }
+
     }
 
     public function get_client( $id )
@@ -33,7 +34,7 @@ class Model_client extends Connect
             $result = $stm->fetchAll( PDO::FETCH_OBJ );
             return $result;
         } catch ( PDOException $e ) {
-            die( $e->getMessage() );
+            $this->error = $e->getMessage();
         }
 
     }
@@ -47,7 +48,7 @@ class Model_client extends Connect
             $result = $stm->fetchAll( PDO::FETCH_OBJ );
             return $result;
         } catch ( PDOException $e ) {
-            die( $e->getMessage() );
+            $this->error = $e->getMessage();
         }
     }
 
@@ -64,7 +65,7 @@ class Model_client extends Connect
             $result = $stm->execute();
             return $result;
         } catch ( PDOException $e ) {
-            die( $e->getMessage() );
+            $this->error = $e->getMessage();
         }
     }
 
@@ -79,7 +80,7 @@ class Model_client extends Connect
             $result = $stm->fetchAll( PDO::FETCH_OBJ );
             return $result;
         } catch ( PDOException $e ) {
-            die( $e->getMessage() );
+            $this->error = $e->getMessage();
         }
     }
 
@@ -93,7 +94,7 @@ class Model_client extends Connect
             $result = $stm->execute();
             return $result;
         } catch ( PDOException $e ) {
-            die( $e->getMessage() );
+            $this->error = $e->getMessage();
         }
     }
 
@@ -107,7 +108,7 @@ class Model_client extends Connect
             $result = $stm->execute();
             return $result;
         } catch ( PDOException $e ) {
-            die( $e->getMessage() );
+            $this->error = $e->getMessage();
         }
     }
 }

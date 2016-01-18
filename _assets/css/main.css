@@ -126,7 +126,7 @@ ol, ul {
 /** FOOTER **/
 
 .footer {
-    position:absolute;
+    position: fixed;
 	bottom:0;
     height: 50px;
     font-family: "Arial MT";

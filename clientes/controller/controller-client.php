@@ -20,6 +20,7 @@ class Controller_client extends Functions
 
     private function insert()
     {
+        $this->error = false;
         $v = array(
             '_name'     =>  '',
             '_branch'   =>  '',
@@ -33,6 +34,8 @@ class Controller_client extends Functions
                 '_phone',
             );
             $values = $this->sanitize_fields( $_POST , $requires );
+            if ( !$values )
+                $this->error = 'Preencha todos os campos! ';
         }
 
         if ( isset( $values ) && $values ) {
@@ -40,8 +43,9 @@ class Controller_client extends Functions
             $client = new Model_client();
             $result = $client->insert_client( $values );
 
+
             if ( !$result ) {
-                $error = 'Erro ao cadastrar cliente. Tente novamente!';
+                $this->error = 'Erro ao cadastrar cliente. Tente novamente! ';
 
                 $this->v = array(
                     '_name'     =>  $values[ '_name' ],
@@ -50,20 +54,28 @@ class Controller_client extends Functions
                 );
             } else {
                 $this->clients = $client->get_clients();
+                if ( !$this->clients )
+                    $this->error = $client->error;
                 include_once 'view/view-client.php';
                 exit;
             }
         }
+        if ( $client->error )
+            $this->error .= $client->error;
+
         include_once "view/client-insert.php";
     }
 
     private function edit()
     {
+        $this->error = false;
         if ( isset( $_GET[ 'id' ] ) && $_GET[ 'id' ] ) {
             $id = (int) $_GET[ 'id' ];
             $model  = new Model_client();
             $client = $model->get_client( $id );
             $client = array_shift( $client );
+            if ( !$client )
+                $this->error = 'Cliente não encontrado! ';
         }
 
         if ( isset( $_POST[ 'client-form' ] ) && $_POST[ 'client-form' ] ) {
@@ -91,6 +103,7 @@ class Controller_client extends Functions
                 '_phone'     => $client->client_phone
             );
         } else {
+            $this->error = 'Ocorreu um erro ao atualizar o cliente! ';
             $this->v = array(
                 '_name'      => $_POST[ '_name' ],
                 '_branch'    => $_POST[ '_branch' ],
@@ -98,11 +111,15 @@ class Controller_client extends Functions
             );
         }
 
+        if ( $model->error )
+            $this->error .= $model->error;
+
         include_once "view/client-insert.php";
     }
 
     private function delete()
     {
+        $this->error = false;
         if ( isset( $_GET[ 'id' ] ) && $_GET[ 'id' ] ) {
             $id = (int) $_GET[ 'id' ];
             $model = new Model_client();
@@ -110,23 +127,31 @@ class Controller_client extends Functions
             if ( empty( $in_order ) ) {
                 $delete = $model->delete_client( $id );
                 if ( !$delete )
-                    $error = 'Não foi possível deletar este cliente!';
+                    $this->error = 'Não foi possível deletar este cliente!';
             } else {
                 $delete = $model->delete_order( $id );
                 if ( $delete )
                     $delete = $model->delete_client( $id );
                 else
-                    $error = 'Não foi possível deleter este cliente!';
+                    $this->error = 'Não foi possível deleter este cliente!';
             }
             $client             = new Model_client();
             $this->clients      = $client->get_clients();
+
+            if ( $model->error )
+                $this->error = $model->error;
+            if( $client->error )
+                $this->error .= $client->error;
         }
         include_once 'view/view-client.php';
     }
 
     private function list_all()
     {
+        $this->error        = false;
         $client             = new Model_client();
         $this->clients      = $client->get_clients();
+        if ( $client->error )
+            $this->error = $client->error;
     }
 }

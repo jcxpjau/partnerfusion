@@ -1,6 +1,7 @@
 <?php include_once PATH_SITE . 'includes/header-menu.php'; ?>
 <section class="container list">
     <div class="wrapper">
+        <span><?php echo $this->error; ?></span>
         <h2>Listagem de Clientes</h2>
         <ul class="container list list-head">
             <li><span>Nome</span></li>
