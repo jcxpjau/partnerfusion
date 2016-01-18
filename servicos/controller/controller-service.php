@@ -44,6 +44,10 @@ class Controller_service extends Functions
                     '_name'     =>  $values[ '_name' ],
                     '_resume'   =>  $values[ '_resume' ]
                 );
+            } else {
+                $this->services = $service->get_services();
+                include_once 'view/view-service.php';
+                exit;
             }
         } else {
             $this->v = array(
@@ -101,7 +105,7 @@ class Controller_service extends Functions
             $id = (int) $_GET[ 'id' ];
             $serviceMOD = new Model_service();
             $in_order = $serviceMOD->in_order( $id );
-            if ( !empty( $in_order ) ) {
+            if ( empty( $in_order ) ) {
                 $delete = $serviceMOD->delete_service( $id );
                 if ( !$delete )
                     $error = 'Não foi possível deletar este serviço!';
@@ -112,6 +116,8 @@ class Controller_service extends Functions
                 else
                     $error = 'Não foi possível deleter este serviço!';
             }
+            $services       = new Model_service();
+            $this->services = $services->get_services();
         }
         include_once 'view/view-service.php';
     }

@@ -17,7 +17,7 @@
                 }
         ?>
         <ul class="container list">
-            <li><span><?php echo $v->service_name; ?></span><a href="?action=edit&id=<?php echo $v->order_id; ?>"> editar </a><a href="?id=<?php echo $v->order_id; ?>"> excluir </a></li>
+            <li><span><?php echo $v->service_name; ?></span><a href="?action=edit&id=<?php echo $v->order_id; ?>"> editar </a><a class="btn-delete" href="?id=<?php echo $v->order_id; ?>"> excluir </a></li>
             <li><span><?php echo date( 'd-m-Y' , strtotime( $v->order_start ) ); ?></span></li>
             <li><span><?php echo date( 'd-m-Y' , strtotime( $v->order_end ) ); ?></span></li>
             <li><span><?php echo $v->rest_days; ?></span></li>

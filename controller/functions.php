@@ -59,26 +59,27 @@ class Functions
 
     public function check_access()
     {
-        $hash = false;
+        $user = false;
         $login = "/". SITE_NAME. "/login.php";
 
         if ( isset( $_SESSION[ 'hash' ] ) && $_SESSION[ 'hash' ] )
-            $hash = $_SESSION[ 'hash' ];
+            $user = $_SESSION[ 'hash' ];
         else if ( isset( $_COOKIE[ 'hash' ] ) && $_COOKIE[ 'hash' ] )
-            $hash = $_COOKIE[ 'hash' ];
+            $user = $_COOKIE[ 'hash' ];
 
-        if ( $hash ) {
-            $hash   = base64_decode( $hash );
+        if ( $user ) {
+            $user   = base64_decode( $user );
             $model  = new Model();
-            $hash   = $model->validate_hash( $hash );
+            $user   = $model->validate_hash( $user );
+            $_SESSION[ 'username' ] = $user->user_name;
         }
 
-        if( $hash && $_SERVER[ 'SCRIPT_NAME' ] == $login ) {
+        if( $user && $_SERVER[ 'SCRIPT_NAME' ] == $login ) {
             include_once PATH_SITE . 'index.php';
             exit;
         }
 
-        if ( !$hash ) {
+        if ( !$user ) {
             include_once PATH_SITE . 'login.php';
             exit;
         }

@@ -2,6 +2,8 @@ var $j = jQuery.noConflict();
 
 $j( window ).load( function() {
 
+    trigger( '.btn-delete' , confirm_delete() );
+
 });
 
 $j( document ).ready( function() {
@@ -35,4 +37,14 @@ function trigger( sel, fn )
         var f = window[ fn ];
         if ( typeof f === "function" ) f();
     }
+}
+
+function confirm_delete()
+{
+    $j( '.btn-delete').click( function( e ) {
+        var r = confirm( "Você realmente deseja deletar este item? " );
+        if ( r !== true ) {
+            e.preventDefault();
+        }
+    });
 }

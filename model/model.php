@@ -44,7 +44,7 @@ class Model extends Connect
             $sth->execute();
             $result = $sth->fetchAll( PDO::FETCH_OBJ );
             $user = array_shift( $result );
-            return ( isset( $user->user_id ) ) ? true : false;
+            return ( isset( $user->user_id ) ) ? $user : false;
         } catch ( PDOException $e ) {
             die( $e->getMessage() );
         }

@@ -48,6 +48,10 @@ class Controller_client extends Functions
                     '_branch'   =>  $values[ '_branch' ],
                     '_phone'    =>  $values[ '_phone' ]
                 );
+            } else {
+                $this->clients = $client->get_clients();
+                include_once 'view/view-client.php';
+                exit;
             }
         }
         include_once "view/client-insert.php";
@@ -103,7 +107,7 @@ class Controller_client extends Functions
             $id = (int) $_GET[ 'id' ];
             $model = new Model_client();
             $in_order = $model->in_order( $id );
-            if ( !empty( $in_order ) ) {
+            if ( empty( $in_order ) ) {
                 $delete = $model->delete_client( $id );
                 if ( !$delete )
                     $error = 'Não foi possível deletar este cliente!';
@@ -114,6 +118,8 @@ class Controller_client extends Functions
                 else
                     $error = 'Não foi possível deleter este cliente!';
             }
+            $client             = new Model_client();
+            $this->clients      = $client->get_clients();
         }
         include_once 'view/view-client.php';
     }

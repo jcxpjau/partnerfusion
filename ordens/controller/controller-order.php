@@ -63,6 +63,21 @@ class Controller_order extends Functions
                     '_start'        => $_POST['_start'],
                     '_end'          => $_POST['_end']
                 );
+            } else {
+                $orders         = $order->get_orders();
+                foreach( $orders as $key => $value ) {
+                    if ( strtotime( date( 'Y-m-d') ) > strtotime( $value->order_start ) ) {
+                        $rest = strtotime( $value->order_end ) - strtotime( date( 'Y-m-d' ) );
+                    } else {
+                        $rest = strtotime( $value->order_end ) - strtotime( $value->order_start );
+                    }
+                    $rest = $rest / 86400;
+
+                    $value->rest_days = $rest;
+                }
+                $this->orders = $orders;
+                include_once 'view/view-order.php';
+                exit;
             }
         }
 

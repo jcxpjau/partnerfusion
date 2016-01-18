@@ -10,13 +10,15 @@
         </ul>
         <ul class="container list">
         <?php
-        if ( $this->clients ) {
+        if ( !empty( $this->clients ) ) {
             foreach( $this->clients as $k => $v ) {  ?>
-            <li><span><?php echo $v->client_name; ?></span><a href="?action=edit&id=<?php echo $v->client_id; ?>"> editar </a><a href="?action=delete&id=<?php echo $v->client_id; ?>"> excluir </a></li>
+            <li><span><?php echo $v->client_name; ?></span><a href="?action=edit&id=<?php echo $v->client_id; ?>"> editar </a><a class="btn-delete" href="?action=delete&id=<?php echo $v->client_id; ?>"> excluir </a></li>
             <li><span><?php echo $v->client_branch; ?></span></li>
             <li><span><?php echo $v->client_phone; ?></span></li>
             <li><span><?php echo date( 'd/m/Y', strtotime( $v->client_register_date ) ); ?></span></li>
-        <?php } } ?>
+        <?php } } else { ?>
+            <span>Nenhum cliente cadastrado ainda!</span>
+            <?php } ?>
         </ul>
     </div>
 </section>
