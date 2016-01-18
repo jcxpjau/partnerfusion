@@ -6,6 +6,18 @@
     <title>Partner Fusion | Home</title>
 </head>
 <body>
+<section class="container admin-bar">
+    <div class="wrapper">
+        <ul>
+            <li>
+                <span class="user-info">Olá, <?php echo $_SESSION[ 'username' ]; ?></span>
+            </li>
+            <li>
+                <a href="<?php echo URL_SITE . '?action=logout'; ?>">Logout</a>
+            </li>
+        </ul>
+    </div>
+</section>
 <header class="container header">
     <div class="wrapper">
         <div class="logo container">

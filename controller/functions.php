@@ -8,6 +8,14 @@ class Functions
             session_start();
         }
 
+        if ( isset( $_GET[ 'action' ] ) && $_GET[ 'action' ] == 'logout' ) {
+            unset( $_SESSION[ 'hash' ] );
+            unset( $_SESSION[ 'username' ] );
+            setcookie( 'hash' , null , -1 );
+            include_once PATH_SITE . 'login.php';
+            exit;
+        }
+
         if ( isset( $_POST[ 'login-form' ] ) && $_POST[ 'login-form' ] ) {
             $logged = $this->login();
             if ( !$logged )
@@ -36,6 +44,7 @@ class Functions
         if ( isset( $user->user_id ) && $user->user_id ) {
 
             $_SESSION[ 'hash' ] = base64_encode( $user->user_id );
+            $_SESSION[ 'username' ] = $user->user_name;
 
             if ( isset( $values['_rememberme'] ) && $values[ '_rememberme' ] ) {
 

@@ -184,3 +184,23 @@ ol, ul {
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
+.admin-bar {
+    background-color: #FC2725;
+    height: 25px;
+    text-align: right;
+    color: white;
+    font-size: 0.9rem;
+}
+.admin-bar a {
+    color: white;
+}
+.admin-bar ul,
+.admin-bar li {
+    margin-top: 1.5px;
+    display: inline-block;
+}
+
+.admin-bar li {
+    padding-left: 8px;
+}

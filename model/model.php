@@ -8,7 +8,7 @@ class Model extends Connect
 
     public function get_user( $data )
     {
-        $query = 'SELECT user_id FROM users WHERE user_email = :email AND user_pwd = :pwd ';
+        $query = 'SELECT user_id, user_name FROM users WHERE user_email = :email AND user_pwd = :pwd ';
         try{
             $sth = $this->db->prepare( $query );
             $sth->bindParam( ':email', $data[ '_email' ] );
@@ -37,7 +37,7 @@ class Model extends Connect
 
     public function validate_hash( $hash )
     {
-        $query = "SELECT user_id FROM users WHERE user_id  = :hash ";
+        $query = "SELECT user_id, user_name FROM users WHERE user_id  = :hash AND user_permissions = 'admin' ";
         try {
             $sth = $this->db->prepare( $query );
             $sth->bindParam( ':hash' , $hash , PDO::PARAM_INT );
