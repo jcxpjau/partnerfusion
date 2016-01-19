@@ -10,7 +10,7 @@ if ( isset( $_GET[ 'id' ] ) && $_GET[ 'id' ]  ) {
 <section class="container form">
     <div class="wrapper">
         <div class="register">
-            <h3><?php echo $text; ?> de Clientes</h3>
+            <h3><?php echo $text; ?> de Trabalhos</h3>
             <h3><a href="<?php echo URL_SITE . 'ordens'; ?>">voltar</a></h3>
             <form action="<?php echo $action; ?>" method="POST">
                 <fieldset>

@@ -51,15 +51,33 @@ class Controller_order extends Functions
 
         if ( isset( $values ) && $values ) {
 
-            $values[ '_start' ] = implode('-', array_reverse( explode( '/', $values[ '_start' ] ) ) );
-            $values[ '_end' ]   = implode('-', array_reverse( explode( '/', $values[ '_end'   ] ) ) );
-            $values[ '_register_date' ] = date( 'Y-m-d' );
+            list( $start_d , $start_m , $start_y ) = explode( '/', $values[ '_start' ] );
+            list( $end_d , $end_m , $end_y )       = explode( '/' , $values[ '_end' ] );
 
-            $order  = new Model_order();
-            $result = $order->insert_order( $values );
+            $start = checkdate( $start_m , $start_d , $start_y );
+            $end   = checkdate( $end_m , $end_d , $end_y );
 
-            if ( !$result ) {
-                $this->error = 'Não foi possível cadastrar essa ordem!';
+            if ( $start && $end ) {
+
+                $values[ '_start' ]         = implode('-', array_reverse( explode('/', $values[ '_start' ] ) ) );
+                $values[ '_end' ]           = implode('-', array_reverse( explode('/', $values[ '_end' ] ) ) );
+
+                if ( strtotime( $values[ '_start' ] ) < strtotime( $values[ '_end' ] ) ) {
+                    $values[ '_register_date' ] = date( 'Y-m-d' );
+                    $order = new Model_order();
+                    $result = $order->insert_order( $values );
+                } else {
+                    $this->error = 'Data inicial não pode ser maior que a data final! ';
+                }
+
+            } else {
+                $this->error = 'Data inválida! ';
+            }
+
+            if ( !isset( $result ) ) {
+
+                if ( !$this->error )
+                    $this->error = 'Não foi possível cadastrar esse trabalho!';
 
                 $this->v = array(
                     '_client_id'    => $_POST['_client_id'],
@@ -131,14 +149,33 @@ class Controller_order extends Functions
         }
 
         if ( isset( $values ) && $values && isset( $id ) ) {
+
             $values[ '_id' ] =  (int) $id;
-            $values[ '_start' ] = implode('-', array_reverse( explode( '/', $values[ '_start' ] ) ) );
-            $values[ '_end' ]   = implode('-', array_reverse( explode( '/', $values[ '_end'   ] ) ) );
-            $result = $orderMOD->update_order( $values );
-            if ( $result ) {
-                $this->msg = 'Trabalho editado com sucesso! ';
-                $order = $orderMOD->get_order( $values[ '_id' ] );
-                $order = array_shift( $order );
+
+            list( $start_d , $start_m , $start_y ) = explode( '/', $values[ '_start' ] );
+            list( $end_d , $end_m , $end_y )       = explode( '/' , $values[ '_end' ] );
+
+            $start = checkdate( $start_m , $start_d , $start_y );
+            $end   = checkdate( $end_m , $end_d , $end_y );
+
+            if ( $start && $end ) {
+
+                $values['_start'] = implode('-', array_reverse(explode('/', $values['_start'])));
+                $values['_end']   = implode('-', array_reverse(explode('/', $values['_end'])));
+
+                if (strtotime($values['_start']) < strtotime($values['_end'])) {
+
+                    $result = $orderMOD->update_order($values);
+                    if ($result) {
+                        $this->msg = 'Trabalho editado com sucesso! ';
+                        $order = $orderMOD->get_order($values['_id']);
+                        $order = array_shift($order);
+                    }
+                } else {
+                    $this->error = 'Data inicial não pode ser maior que data final! ';
+                }
+            } else {
+                $this->error = 'Data inválida! ';
             }
         }
 
@@ -150,7 +187,9 @@ class Controller_order extends Functions
                 '_end'              => date( 'd-m-Y' , strtotime( $order->order_end ) )
             );
         } else {
-            $this->error = 'Não foi possível gravar suas alterações! ';
+
+            if ( !$this->error )
+                $this->error = 'Não foi possível gravar suas alterações! ';
 
             $this->v = array(
                 '_client_id'    => $_POST['_client_id'],
