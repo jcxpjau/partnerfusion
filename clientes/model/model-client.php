@@ -21,7 +21,6 @@ class Model_client extends Connect
         } catch ( PDOException $e ) {
             $this->error = $e->getMessage();
         }
-
     }
 
     public function get_client( $id )
@@ -36,7 +35,6 @@ class Model_client extends Connect
         } catch ( PDOException $e ) {
             $this->error = $e->getMessage();
         }
-
     }
 
     public function get_clients()
