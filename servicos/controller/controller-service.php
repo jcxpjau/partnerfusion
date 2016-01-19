@@ -19,6 +19,7 @@ class Controller_service extends Functions
 
     private function insert()
     {
+        $this->error = false;
         $this->v = array(
             '_name'     =>  '',
             '_resume'   =>  ''
@@ -30,6 +31,8 @@ class Controller_service extends Functions
                 '_resume'
             );
             $values = $this->sanitize_fields( $_POST , $requires );
+            if ( !$values )
+                $this->error = 'Preencha todos os campos! ';
         }
 
         if ( isset( $values ) && $values ) {
@@ -38,7 +41,7 @@ class Controller_service extends Functions
             $result = $service->insert_service( $values );
 
             if ( !$result ) {
-                $error = 'Erro ao cadastrar serviço. Tente novamente!';
+                $this->error = 'Erro ao cadastrar serviço. Tente novamente! ';
 
                 $this->v = array(
                     '_name'     =>  $values[ '_name' ],
@@ -46,25 +49,34 @@ class Controller_service extends Functions
                 );
             } else {
                 $this->services = $service->get_services();
+                if ( $service->error )
+                    $this->error = $service->error;
                 include_once 'view/view-service.php';
                 exit;
             }
         } else {
             $this->v = array(
-                '_name'     =>  $_POST[ '_name' ],
-                '_resume'   =>  $_POST[ '_resume' ]
+                '_name' => $_POST['_name'],
+                '_resume' => $_POST['_resume']
             );
         }
+
+        if ( isset( $service->error ) )
+            $this->error .=  $service->error;
+
         include_once "view/service-insert.php";
     }
 
     private function edit()
     {
+        $this->error = false;
         if ( isset( $_GET[ 'id' ] ) && $_GET[ 'id' ] ) {
             $id = (int) $_GET[ 'id' ];
             $serviceMOD  = new Model_service();
             $service     = $serviceMOD->get_service( $id );
             $service     = array_shift( $service );
+            if ( !$service )
+                $this->error = 'Serviço não encontrado! ';
         }
 
         if ( isset( $_POST[ 'service-form' ] ) && $_POST[ 'service-form' ] ) {
@@ -73,6 +85,8 @@ class Controller_service extends Functions
                 '_resume'
             );
             $values = $this->sanitize_fields( $_POST , $requires );
+            if ( !$values )
+                $this->error = 'Preencha todos os campos! ';
         }
 
         if ( isset( $values ) && $values && isset( $id ) ) {
@@ -81,6 +95,8 @@ class Controller_service extends Functions
             if ( $result ) {
                 $service = $serviceMOD->get_service( $values[ '_id' ] );
                 $service = array_shift( $service );
+            } else {
+                $this->error = 'Erro ao atualizar serviço! ';
             }
         }
 
@@ -90,17 +106,22 @@ class Controller_service extends Functions
                 '_resume'       => $service->service_resume
             );
         } else {
+            $this->error = 'Ocorreu um erro ao atualizar o serviço! ';
             $this->v = array(
                 '_name'         => $_POST[ '_name' ],
                 '_resume'       => $_POST[ '_resume' ]
             );
         }
 
+        if ( isset( $serviceMOD->error ) )
+            $this->error .= $serviceMOD->error;
+
         include_once "view/service-insert.php";
     }
 
     private function delete()
     {
+        $this->error = false;
         if ( isset( $_GET[ 'id' ] ) && $_GET[ 'id' ] ) {
             $id = (int) $_GET[ 'id' ];
             $serviceMOD = new Model_service();
@@ -108,17 +129,23 @@ class Controller_service extends Functions
             if ( empty( $in_order ) ) {
                 $delete = $serviceMOD->delete_service( $id );
                 if ( !$delete )
-                    $error = 'Não foi possível deletar este serviço!';
+                    $this->error = 'Não foi possível deletar este serviço! ';
             } else {
                 $delete = $serviceMOD->delete_order( $id );
                 if ( $delete )
                     $delete = $serviceMOD->delete_service( $id );
                 else
-                    $error = 'Não foi possível deleter este serviço!';
+                    $this->error = 'Não foi possível deleter este serviço! ';
             }
             $services       = new Model_service();
             $this->services = $services->get_services();
+
+            if ( $services->error )
+                $this->error .= $services->error;
+        } else {
+            $this->error = 'Serviço não informado! ';
         }
+
         include_once 'view/view-service.php';
     }
 
@@ -126,6 +153,8 @@ class Controller_service extends Functions
     {
         $services       = new Model_service();
         $this->services = $services->get_services();
+        if ( $services->error )
+            $this->error = $services->error;
     }
 
 }

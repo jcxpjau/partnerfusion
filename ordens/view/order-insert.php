@@ -59,6 +59,7 @@ if ( isset( $_GET[ 'id' ] ) && $_GET[ 'id' ]  ) {
                         <li>
                             <input type="hidden" name="order-form" value="1" />
                             <input class="button" type="submit" value="Gravar" />
+                            <?php echo $this->error; ?>
                         </li>
                     </ul>
                 </fieldset>

@@ -85,6 +85,8 @@ class Controller_client extends Functions
                 '_phone',
             );
             $values = $this->sanitize_fields( $_POST , $requires );
+            if ( !$values )
+                $this->error = 'Preencha todos os campos! ';
         }
 
         if ( isset( $values ) && $values && isset( $id ) ) {
@@ -142,6 +144,8 @@ class Controller_client extends Functions
                 $this->error = $model->error;
             if( $client->error )
                 $this->error .= $client->error;
+        } else {
+            $this->error = 'Cliente não informado! ';
         }
         include_once 'view/view-client.php';
     }

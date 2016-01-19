@@ -22,6 +22,7 @@ class Controller_order extends Functions
 
     private function insert()
     {
+        $this->error = false;
         $this->v = array(
             '_client_id'    => '',
             '_service_id'   => '',
@@ -43,6 +44,8 @@ class Controller_order extends Functions
             );
 
             $values = $this->sanitize_fields($_POST, $requires);
+            if ( !$values )
+                $this->error = 'Preencha todos os campos! ';
         }
 
         if ( isset( $values ) && $values ) {
@@ -55,7 +58,7 @@ class Controller_order extends Functions
             $result = $order->insert_order( $values );
 
             if ( !$result ) {
-                $error = 'Não foi possível cadastrar essa ordem!';
+                $this->error = 'Não foi possível cadastrar essa ordem!';
 
                 $this->v = array(
                     '_client_id'    => $_POST['_client_id'],
@@ -76,16 +79,29 @@ class Controller_order extends Functions
                     $value->rest_days = $rest;
                 }
                 $this->orders = $orders;
+
+                if ( $order->error )
+                    $this->error .= $order->error;
+
                 include_once 'view/view-order.php';
                 exit;
             }
+
+            if ( $order->error )
+                $this->error .= $order->error;
         }
+
+        if( $client->error )
+            $this->error .= $client->error;
+        if ( $service->error )
+            $this->error .= $service->error;
 
         include_once 'view/order-insert.php';
     }
 
     private function edit()
     {
+        $this->error    = false;
         $client         = new Model_client();
         $service        = new Model_service();
         $this->clients  = $client->get_clients();
@@ -96,6 +112,8 @@ class Controller_order extends Functions
             $orderMOD  = new Model_order();
             $order     = $orderMOD->get_order( $id );
             $order     = array_shift( $order );
+            if ( !$order )
+                $this->error = 'Ordem não informada! ';
         }
 
         if ( isset( $_POST[ 'order-form' ] ) && $_POST[ 'order-form' ] ) {
@@ -106,6 +124,8 @@ class Controller_order extends Functions
                 '_end'
             );
             $values = $this->sanitize_fields( $_POST , $requires );
+            if ( !$values )
+                $this->error = 'Preencha todos os campos! ';
         }
 
         if ( isset( $values ) && $values && isset( $id ) ) {
@@ -127,7 +147,7 @@ class Controller_order extends Functions
                 '_end'              => date( 'd-m-Y' , strtotime( $order->order_end ) )
             );
         } else {
-            $error = 'Não foi possível gravar suas alterações';
+            $this->error = 'Não foi possível gravar suas alterações! ';
 
             $this->v = array(
                 '_client_id'    => $_POST['_client_id'],
@@ -137,32 +157,42 @@ class Controller_order extends Functions
             );
         }
 
+        if ( isset( $orderMOD->error ) )
+            $this->error .= $orderMOD->error;
+
         include_once "view/order-insert.php";
     }
 
     private function list_all()
     {
+        $this->error = false;
         if ( isset( $_GET[ 'id' ] ) && $_GET[ 'id' ] ) {
             $id     = (int) $_GET[ 'id' ];
             $order  = new Model_order();
             $result = $order->delete_order( $id );
             if ( !$result )
-                $error = 'Não foi possível deletar seu trabalho!';
+                $this->error = 'Não foi possível deletar seu trabalho!';
         }
 
         $order          = new Model_order();
         $orders         = $order->get_orders();
 
-        foreach( $orders as $key => $value ) {
-            if ( strtotime( date( 'Y-m-d') ) > strtotime( $value->order_start ) ) {
-                $rest = strtotime( $value->order_end ) - strtotime( date( 'Y-m-d' ) );
-            } else {
-                $rest = strtotime( $value->order_end ) - strtotime( $value->order_start );
-            }
-            $rest = $rest / 86400;
+        if ( $orders ) {
 
-            $value->rest_days = $rest;
+            foreach ($orders as $key => $value) {
+                if (strtotime(date('Y-m-d')) > strtotime($value->order_start)) {
+                    $rest = strtotime($value->order_end) - strtotime(date('Y-m-d'));
+                } else {
+                    $rest = strtotime($value->order_end) - strtotime($value->order_start);
+                }
+                $rest = $rest / 86400;
+
+                $value->rest_days = $rest;
+            }
         }
         $this->orders = $orders;
+
+        if ( $order->error )
+            $this->error .= $order->error;
     }
 }
