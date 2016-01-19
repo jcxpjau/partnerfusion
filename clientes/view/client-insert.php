@@ -30,7 +30,7 @@ if ( isset( $_GET[ 'id' ] ) && $_GET[ 'id' ]  ) {
                         <li>
                             <input type="hidden" name="client-form" value="1" />
                             <input class="button" type="submit" value="Gravar" />
-                            <span><?php echo $this->error; ?></span>
+                            <span><?php echo ( $this->error ) ? $this->error: $this->msg ; ?></span>
                         </li>
                     </ul>
                 </fieldset>

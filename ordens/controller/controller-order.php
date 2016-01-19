@@ -23,6 +23,7 @@ class Controller_order extends Functions
     private function insert()
     {
         $this->error = false;
+        $this->msg   = false;
         $this->v = array(
             '_client_id'    => '',
             '_service_id'   => '',
@@ -80,20 +81,20 @@ class Controller_order extends Functions
                 }
                 $this->orders = $orders;
 
-                if ( $order->error )
+                if ( isset( $order->error ) )
                     $this->error .= $order->error;
 
                 include_once 'view/view-order.php';
                 exit;
             }
 
-            if ( $order->error )
+            if ( isset( $order->error ) )
                 $this->error .= $order->error;
         }
 
-        if( $client->error )
+        if( isset( $client->error ) )
             $this->error .= $client->error;
-        if ( $service->error )
+        if ( isset( $service->error ) )
             $this->error .= $service->error;
 
         include_once 'view/order-insert.php';
@@ -102,6 +103,7 @@ class Controller_order extends Functions
     private function edit()
     {
         $this->error    = false;
+        $this->msg      = false;
         $client         = new Model_client();
         $service        = new Model_service();
         $this->clients  = $client->get_clients();
@@ -134,6 +136,7 @@ class Controller_order extends Functions
             $values[ '_end' ]   = implode('-', array_reverse( explode( '/', $values[ '_end'   ] ) ) );
             $result = $orderMOD->update_order( $values );
             if ( $result ) {
+                $this->msg = 'Trabalho editado com sucesso! ';
                 $order = $orderMOD->get_order( $values[ '_id' ] );
                 $order = array_shift( $order );
             }
@@ -192,7 +195,7 @@ class Controller_order extends Functions
         }
         $this->orders = $orders;
 
-        if ( $order->error )
+        if ( isset( $order->error ) )
             $this->error .= $order->error;
     }
 }

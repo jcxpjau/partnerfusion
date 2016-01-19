@@ -18,8 +18,10 @@ class Functions
 
         if ( isset( $_POST[ 'login-form' ] ) && $_POST[ 'login-form' ] ) {
             $logged = $this->login();
-            if ( !$logged )
+            if ( !$logged ) {
+                $this->error = 'Usuário ou senha incorretos!';
                 include_once PATH_SITE . 'login.php';
+            }
         }
     }
 
@@ -71,7 +73,8 @@ class Functions
             $user   = base64_decode( $user );
             $model  = new Model();
             $user   = $model->validate_hash( $user );
-            $_SESSION[ 'username' ] = $user->user_name;
+            if ( isset( $user->user_name ) && $user->user_name )
+                $_SESSION[ 'username' ] = $user->user_name;
         }
 
         if( $user && $_SERVER[ 'SCRIPT_NAME' ] == $login ) {
@@ -79,6 +82,14 @@ class Functions
             exit;
         }
 
+        if ( !$user && isset( $_SESSION[ 'hash' ] ) ) {
+            unset( $_SESSION[ 'hash' ] );
+            unset( $_SESSION[ 'username' ] );
+            setcookie( 'hash' , null , -1 );
+            $this->error = 'Você não tem permissão para acessar o sistema! ';
+            include_once PATH_SITE . 'login.php';
+            exit;
+        }
         if ( !$user ) {
             include_once PATH_SITE . 'login.php';
             exit;

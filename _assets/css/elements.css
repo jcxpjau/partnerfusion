@@ -28,6 +28,12 @@ fieldset {
 .login form p {
     font-size: 0.9rem;
 }
+.login span {
+    display: block;
+    font-size: 1rem;
+    color: red;
+    margin-top: 15px;
+}
 input[type="text"],
 input[type="password"],
 select {

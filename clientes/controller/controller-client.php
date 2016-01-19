@@ -21,7 +21,8 @@ class Controller_client extends Functions
     private function insert()
     {
         $this->error = false;
-        $v = array(
+        $this->msg   = false;
+        $this->v = array(
             '_name'     =>  '',
             '_branch'   =>  '',
             '_phone'    =>  ''
@@ -60,7 +61,7 @@ class Controller_client extends Functions
                 exit;
             }
         }
-        if ( $client->error )
+        if ( isset( $client->error ) )
             $this->error .= $client->error;
 
         include_once "view/client-insert.php";
@@ -69,6 +70,12 @@ class Controller_client extends Functions
     private function edit()
     {
         $this->error = false;
+        $this->msg   = false;
+        $this->v = array(
+            '_name'     =>  '',
+            '_branch'   =>  '',
+            '_phone'    =>  ''
+        );
         if ( isset( $_GET[ 'id' ] ) && $_GET[ 'id' ] ) {
             $id = (int) $_GET[ 'id' ];
             $model  = new Model_client();
@@ -93,6 +100,7 @@ class Controller_client extends Functions
             $values[ '_id' ] =  (int) $id;
             $result = $model->update_client( $values );
             if ( $result ) {
+                $this->msg = 'Cliente editado com sucesso';
                 $client = $model->get_client( $values[ '_id' ] );
                 $client = array_shift( $client );
             }
@@ -113,7 +121,7 @@ class Controller_client extends Functions
             );
         }
 
-        if ( $model->error )
+        if ( isset( $model->error ) )
             $this->error .= $model->error;
 
         include_once "view/client-insert.php";
@@ -140,9 +148,9 @@ class Controller_client extends Functions
             $client             = new Model_client();
             $this->clients      = $client->get_clients();
 
-            if ( $model->error )
+            if ( isset( $model->error ) )
                 $this->error = $model->error;
-            if( $client->error )
+            if( isset( $client->error ) )
                 $this->error .= $client->error;
         } else {
             $this->error = 'Cliente não informado! ';
@@ -155,7 +163,7 @@ class Controller_client extends Functions
         $this->error        = false;
         $client             = new Model_client();
         $this->clients      = $client->get_clients();
-        if ( $client->error )
+        if ( isset( $client->error ) )
             $this->error = $client->error;
     }
 }

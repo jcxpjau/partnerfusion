@@ -26,6 +26,7 @@ include_once PATH_SITE . 'includes/header.php'; ?>
                     </ul>
                 </fieldset>
             </form>
+            <span><?php echo ( isset( $this->error ) && $this->error ) ? $this->error : ''; ?></span>
         </div>
     </div>
 </section>

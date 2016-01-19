@@ -20,6 +20,7 @@ class Controller_service extends Functions
     private function insert()
     {
         $this->error = false;
+        $this->msg   = false;
         $this->v = array(
             '_name'     =>  '',
             '_resume'   =>  ''
@@ -49,16 +50,11 @@ class Controller_service extends Functions
                 );
             } else {
                 $this->services = $service->get_services();
-                if ( $service->error )
+                if ( isset( $service->error ) )
                     $this->error = $service->error;
                 include_once 'view/view-service.php';
                 exit;
             }
-        } else {
-            $this->v = array(
-                '_name' => $_POST['_name'],
-                '_resume' => $_POST['_resume']
-            );
         }
 
         if ( isset( $service->error ) )
@@ -70,6 +66,7 @@ class Controller_service extends Functions
     private function edit()
     {
         $this->error = false;
+        $this->msg   = false;
         if ( isset( $_GET[ 'id' ] ) && $_GET[ 'id' ] ) {
             $id = (int) $_GET[ 'id' ];
             $serviceMOD  = new Model_service();
@@ -93,6 +90,7 @@ class Controller_service extends Functions
             $values[ '_id' ] =  (int) $id;
             $result = $serviceMOD->update_service( $values );
             if ( $result ) {
+                $this->msg = 'Serviço editado com sucesso' ;
                 $service = $serviceMOD->get_service( $values[ '_id' ] );
                 $service = array_shift( $service );
             } else {
@@ -140,7 +138,7 @@ class Controller_service extends Functions
             $services       = new Model_service();
             $this->services = $services->get_services();
 
-            if ( $services->error )
+            if ( isset( $services->error ) )
                 $this->error .= $services->error;
         } else {
             $this->error = 'Serviço não informado! ';
@@ -151,9 +149,10 @@ class Controller_service extends Functions
 
     private function list_all()
     {
+        $this->error    = false;
         $services       = new Model_service();
         $this->services = $services->get_services();
-        if ( $services->error )
+        if ( isset( $services->error ) )
             $this->error = $services->error;
     }
 
